@@ -6,6 +6,7 @@ class User(db.Model):
     __tablename__= 'user'
     
     id = db.Column(db.Integer, primary_key=True)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     username = db.Column(db.String(255), unique=True,nullable=False)
     email = db.Column(db.String(255), unique=True,nullable=False)
     about = db.Column(db.String(255))
@@ -29,10 +30,20 @@ class User(db.Model):
     
     def __repr__(self):
         return f"User {self.username}"
-
-    
+   
 # Role class Model
-
+class Role(db.Model):
+    __tablename__= 'roles'
+    
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(255))
+    users = db.relationship('User', backref = 'role', lazy='dynamic')
+    
+    def save_role(self):
+        db.session.add(self)
+        db.session.commit()
+    
 # Blog class Model
+
 # Comment class Model
 # Vote class Model
