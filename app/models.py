@@ -1,5 +1,6 @@
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 # Writer class Model
 class User(db.Model):
@@ -59,6 +60,30 @@ class Role(db.Model):
         db.session.commit()
     
 # Blog class Model
+class Blog(db.Model):
+    __tablename__ = 'blogs'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    title = db.Column(db.String(255),index=True, nullable=True)
+    blog = db.Column(db.String(255),nullable=False)
+    blog_time = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
+        
+    def get_blog(self,id):
+        blog = Blog.query.filter_by(id=id).first()
+        return blog
+        
+    @classmethod
+    def del_blog(self):
+        db.session.delete(self)
+        db.session.commit()
+    
+    def __repr__(self):
+        return f'Blog {self.title}'
 
 # Comment class Model
 # Vote class Model
