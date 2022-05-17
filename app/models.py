@@ -5,16 +5,17 @@ from datetime import datetime
 # Quote class Model
 class Quote:
     """Quotes class to define quotes objects"""
-    def __init__(self, author, quote):
+    def __init__(self, author, quote, **Kwargs):
         self.author = author
         self.quote = quote
 
 # Writer class Model
 class User(db.Model):
-    __tablename__= 'user'
+    __tablename__= 'users'
     
     id = db.Column(db.Integer, primary_key=True)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    subscriber_id = db.Column(db.Integer, db.ForeignKey('subscribers.id'))
     username = db.Column(db.String(255), unique=True,nullable=False)
     email = db.Column(db.String(255), unique=True,nullable=False)
     about = db.Column(db.String(255))
@@ -62,6 +63,7 @@ class Role(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(255))
     users = db.relationship('User', backref = 'role', lazy='dynamic')
+    # subscribers = db.relationship('Subscriber', backref = 'role', lazy='dynamic')
     
     def save_role(self):
         db.session.add(self)
@@ -100,7 +102,7 @@ class Comment(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(200))
-    comment_time = db.Column(db.Datetime, default=datetime.utcnow)
+    comment_time = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     blog_id = db.Column(db.Integer,db.ForeignKey("blogs.id"))
 

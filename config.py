@@ -4,7 +4,9 @@ class Config:
     """Parent class for general configurations settings"""
     
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLACHEMY_DATABASE_URI = 'postgresql://moringa:Elm1n10@localhost/pitches'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Elm1n10@localhost/blogs'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    
     
 class ProdConfig(Config):
     """
