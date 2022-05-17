@@ -1,6 +1,6 @@
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
+
 # Writer class Model
 class User(db.Model):
     __tablename__= 'user'
@@ -30,6 +30,21 @@ class User(db.Model):
     
     def __repr__(self):
         return f"User {self.username}"
+
+# Subscribers class Model
+class Subscriber(db.Model):
+    __tablename__ = 'subscribers'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255),unique=False)
+    email = db.Column(db.String(255),unique=True)
+    
+    def save_subscriber(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def __repr__(self):
+        return f'Subscriber {self.name}'
    
 # Role class Model
 class Role(db.Model):
