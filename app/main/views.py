@@ -14,19 +14,18 @@ def index():
     
     return render_template("index.html", title=title, blogs=blogs, quotes=quotes)
 
-@main.route("/pitch/new-pitch", methods=['GET', 'POST'])
+@main.route("/new-pitch", methods=['GET', 'POST'])
 @login_required
 def add_blog():
     form = BlogForm()
     if form.validate_on_submit():
-        category=form.category.data
         title=form.title.data
         blog=form.blog.data
         user_id = current_user
-        new_blog= Blog(category=category, title=title,blog=blog, user=user_id)
+        new_blog= Blog(title=title,blog=blog, user=user_id)
         new_blog.save_blog()
         return redirect(url_for('main.index'))
-    title = 'Create New Pitch'
+    title = 'Create New Blog'
     return render_template('index.html', title=title, form=form)
 
 @main.route('/comment/<int:blog_id>', methods=['GET', 'POST'])

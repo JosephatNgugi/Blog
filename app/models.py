@@ -1,6 +1,10 @@
-from . import db
+from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 # Quote class Model
 class Quote:
@@ -8,6 +12,7 @@ class Quote:
     def __init__(self, author, quote, **Kwargs):
         self.author = author
         self.quote = quote
+        
 
 # Writer class Model
 class User(db.Model):
