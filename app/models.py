@@ -39,6 +39,7 @@ class Subscriber(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255),unique=False)
     email = db.Column(db.String(255),unique=True)
+    user = db.relationship('User', backref='subscriber', lazy='dynamic')
     
     def save_subscriber(self):
         db.session.add(self)
@@ -66,7 +67,7 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     title = db.Column(db.String(255),index=True, nullable=True)
-    blog = db.Column(db.String(255),nullable=False)
+    blog = db.Column(db.String(1000),nullable=False)
     blog_time = db.Column(db.DateTime, default=datetime.utcnow)
 
     def save_blog(self):
@@ -77,13 +78,38 @@ class Blog(db.Model):
         blog = Blog.query.filter_by(id=id).first()
         return blog
         
-    @classmethod
-    def del_blog(self):
-        db.session.delete(self)
+    def del_blog(self,id):
+        blog = Blog.query.filter_by(id=id).first()
+        db.session.delete(blog)
         db.session.commit()
     
     def __repr__(self):
         return f'Blog {self.title}'
 
 # Comment class Model
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.String(200))
+    comment_time = db.Column(db.Datetime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    blog_id = db.Column(db.Integer,db.ForeignKey("blogs.id"))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+        
+    @classmethod
+    def get_comments(cls,blog_id):
+        comments = Comment.query.filter_by(blog_id=blog_id).all()
+        return comments
+    
+    def del_comment(self,id):
+        comment = Comment.query.filter_by(id=id).first()
+        db.session.delete(comment)   
+        db.session.commit() 
+    
+    def __repr__(self):
+        return f'Comment {self.comment}'
 # Vote class Model
