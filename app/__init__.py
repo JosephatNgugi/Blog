@@ -28,6 +28,8 @@ def create_app(config_name):
     
     # Blueprint registering
     from .main import main as main_blueprint
+    from .auth import auth as authentication_blueprint
     app.register_blueprint(main_blueprint)
+    app.register_blueprint(authentication_blueprint, url_prefix='/authenticate')
     
     return app
