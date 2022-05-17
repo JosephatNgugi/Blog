@@ -2,6 +2,13 @@ from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
+# Quote class Model
+class Quote:
+    """Quotes class to define quotes objects"""
+    def __init__(self, author, quote):
+        self.author = author
+        self.quote = quote
+
 # Writer class Model
 class User(db.Model):
     __tablename__= 'user'
@@ -69,6 +76,7 @@ class Blog(db.Model):
     title = db.Column(db.String(255),index=True, nullable=True)
     blog = db.Column(db.String(1000),nullable=False)
     blog_time = db.Column(db.DateTime, default=datetime.utcnow)
+    comments = db.relationship('Comment', backref='blog', lazy='dynamic')
 
     def save_blog(self):
         db.session.add(self)
