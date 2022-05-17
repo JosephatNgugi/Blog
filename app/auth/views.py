@@ -1,8 +1,9 @@
 from flask import redirect,render_template,url_for,request,flash
 from app.auth import auth
 from app.models import User
-from .form import LoginForm
-from flask_login import login_user
+from .form import RegForm,LoginForm
+from flask_login import login_user,login_required,logout_user
+from ..email import mail_message
 
 @auth.route('/login',methods=['GET','POST'])
 def login():
@@ -14,4 +15,16 @@ def login():
             return redirect(request.args.get('next') or url_for('main.index'))
         flash('Wrong Username or Password')
     return render_template('auth/login.html',form = form)
+
+@auth.route('/signup',methods= ['GET','POST'])
+def signup():
+    form = RegForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email = form.email.data, password = form.password.data )
+        user.save_user()
+        mail_message('Welcome to BLOG.IO','email/welcome',user.email,user=user)
+        return redirect(url_for('auth.login'))
+    return render_template('auth/signup.html',reg_form=form)
+
+
     
