@@ -1,5 +1,5 @@
 import requests
-from models import Quote
+from .models import Quote
 
 API = 'http://quotes.stormconsultancy.co.uk/random.json'
 def get_quote():
