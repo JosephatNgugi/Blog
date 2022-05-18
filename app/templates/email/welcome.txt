@@ -1,0 +1,3 @@
+Hello {{user.username}}
+Welcome to Blogger
+You are Signed up to recieve notifications whenever a new is posted. Enjoy the Best pitches.

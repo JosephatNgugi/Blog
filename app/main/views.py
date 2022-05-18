@@ -1,9 +1,10 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, abort
 from flask_login import current_user, login_required
 from . import main
 from ..request import get_quote
-from .forms import BlogForm, CommentForm
-from ..models import Blog, Comment
+from .forms import BlogForm, CommentForm, UpdateProfile
+from ..models import Blog, Comment, User
+
 
 
 @main.route("/")
@@ -13,6 +14,29 @@ def index():
     title = 'Home: Blog'
     
     return render_template("index.html", title=title, blogs=blogs, quotes=quotes)
+
+@main.route("/user/<uname>")
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
+    
+    if user is None:
+        abort(404)
+    return render_template("profile/profile.html", user = user)
+
+@main.route("/user/<uname>/update",methods = ['GET', 'POST'])
+@login_required
+def update_profile(uname):
+    user = User.query.filter_by(username =uname).first()
+    if user is None:
+        abort(404)
+        
+    form = UpdateProfile()
+    if form.validate_on_submit():
+        user.about = form.about.data
+        user.save_user()
+        
+        return redirect(url_for(".profile",uname=user.username))
+    return render_template('profile/update.html', form =form)
 
 @main.route("/new-pitch", methods=['GET', 'POST'])
 @login_required

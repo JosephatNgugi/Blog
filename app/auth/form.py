@@ -11,7 +11,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class RegForm(FlaskForm):
-    username = StringField('Enter Your Username', validators=[InputRequired(), Length(min=4, max=20)])
+    username = StringField('Enter Your Username', validators=[InputRequired(), Length(min=3, max=20)])
     email = StringField('Email Address', validators=[InputRequired(),Email()])
     password = PasswordField('Password',validators = [InputRequired(), EqualTo('password_confirm',message = 'Passwords must match')])
     password_confirm = PasswordField('Confirm Passwords',validators = [InputRequired()])
