@@ -1,10 +1,10 @@
-from flask import render_template, redirect, url_for, abort
+from flask import render_template, redirect, url_for, abort, request
 from flask_login import current_user, login_required
 from . import main
 from ..request import get_quote
 from .forms import BlogForm, CommentForm, UpdateProfile
 from ..models import Blog, Comment, User
-
+from .. import db, photos
 
 
 @main.route("/")
@@ -38,7 +38,18 @@ def update_profile(uname):
         return redirect(url_for(".profile",uname=user.username))
     return render_template('profile/update.html', form =form)
 
-@main.route("/new-pitch", methods=['GET', 'POST'])
+@main.route('/user<uname>/update/pic', methods=["POST"])
+@login_required
+def update_pic(uname):
+    user= User.query.filter_by(username=uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photos'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
+    return redirect(url_for('main.profile',uname=uname))
+
+@main.route("/new-blog", methods=['GET', 'POST'])
 @login_required
 def add_blog():
     form = BlogForm()
@@ -50,7 +61,7 @@ def add_blog():
         new_blog.save_blog()
         return redirect(url_for('main.index'))
     title = 'Create New Blog'
-    return render_template('index.html', title=title, form=form)
+    return render_template('blog.html', title=title, form=form)
 
 @main.route('/comment/<int:blog_id>', methods=['GET', 'POST'])
 @login_required

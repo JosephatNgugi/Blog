@@ -14,7 +14,8 @@ def login():
             login_user(user,form.remember.data)
             return redirect(request.args.get('next') or url_for('main.index'))
         flash('Wrong Username or Password')
-    return render_template('auth/login.html',form = form)
+    title = "User Login"
+    return render_template('auth/login.html', title=title,form = form)
 
 @auth.route('/signup',methods= ['GET','POST'])
 def signup():
@@ -24,7 +25,8 @@ def signup():
         user.save_user()
         mail_message('Welcome to BLOG.IO','email/welcome',user.email,user=user)
         return redirect(url_for('auth.login'))
-    return render_template('auth/signup.html',reg_form=form)
+    title = 'Sign Up'
+    return render_template('auth/signup.html', title=title,reg_form=form)
 
 @auth.route('/logout')
 @login_required
