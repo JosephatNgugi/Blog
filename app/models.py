@@ -27,6 +27,7 @@ class User(UserMixin,db.Model):
     about = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     password_secure = db.Column(db.String(255),nullable=False)
+    blog = db.relationship('Blog', backref='user', lazy='dynamic')
     
     def save_user(self):
         db.session.add(self)

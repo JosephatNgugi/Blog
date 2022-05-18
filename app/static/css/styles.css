@@ -2,7 +2,7 @@
 .text{
     font-size: 2.5rem;
     font-style: italic;
-    font-family: 'Skranji', cursive;
+    font-family: 'Libre Bodoni', serif;
     padding: 20rem;
     /* padding-top: 35rem; */
     text-align: center;
@@ -29,7 +29,13 @@
     font-size: larger;
     text-align: center;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    padding: 0, 25rem;
+    padding-left: 15rem;
+    padding-right: 15rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    color: rgb(0, 13, 255);
+    background-color: rgba(222, 184, 135, 0.445);
+    border-radius: 1rem;
 }
 .quotes-block small{
     text-align: right;
@@ -63,3 +69,27 @@
     color: burlywood;
 }
 
+
+/* Blog post */
+.right-b{
+    border-right: solid grey;
+    min-height: 100vh;
+}
+.blog-post{
+    border-bottom: solid #000000;
+    border-width: 0.3mm;
+}
+.blog-post h5{
+    font-size: 5rem;
+    padding-top: 0.5rem;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    text-decoration: underline;
+}
+.comment-box{
+    border: solid rgba(222, 184, 135, 0.92);
+    border-width: 0.5mm;
+    padding: 2rem;
+    border-radius: 2rem;
+
+}

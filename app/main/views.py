@@ -61,11 +61,12 @@ def add_blog():
         new_blog.save_blog()
         return redirect(url_for('main.index'))
     title = 'Create New Blog'
-    return render_template('blog.html', title=title, form=form)
+    return render_template('new-blog.html', title=title, form=form)
 
-@main.route('/comment/<int:blog_id>', methods=['GET', 'POST'])
+@main.route('/blog/<int:blog_id>', methods=['GET', 'POST'])
 @login_required
 def comment(blog_id):
+    quotes = get_quote()
     form = CommentForm()
     blog = Blog.query.get(blog_id)
     comments = Comment.query.filter_by(blog_id=blog_id).all()
@@ -76,4 +77,5 @@ def comment(blog_id):
         new_comment = Comment(comment=comment, user_id =user_id, blog_id =blog_id)      
         new_comment.save_comment()
         return redirect(url_for('.comment', blog_id =blog_id))
-    return render_template('comment.html', form=form, blog=blog, comments=comments)
+    title = '<blog.title>'
+    return render_template('blog-post.html', title=title,quotes = quotes,form=form, blog=blog, comments=comments)
