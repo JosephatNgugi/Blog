@@ -1,0 +1,65 @@
+
+.text{
+    font-size: 2.5rem;
+    font-style: italic;
+    font-family: 'Skranji', cursive;
+    padding: 20rem;
+    /* padding-top: 35rem; */
+    text-align: center;
+    color: burlywood;
+}
+.blog{
+    background:  linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(../photos/blogs.jpg);
+    background-size: cover;
+    background-position:  center top;
+    background-repeat: no-repeat;
+    height: 110vh;
+
+}
+.blog a{
+    padding-top: 1.2rem;
+    text-decoration: none;
+    font-size: 3.2rem;
+    color: #000000;
+}
+.container{
+    padding-top: 6rem;
+}
+.quotes-block{
+    font-size: larger;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 0, 25rem;
+}
+.quotes-block small{
+    text-align: right;
+}
+
+.login, .signup{
+    min-height: 100%;
+    padding-top: 15rem;
+    padding-bottom: 9rem;
+    background-color: rgba(12, 66, 120, 0.731);
+}
+/* new blog/ blog.html */
+.adder{
+    background:  linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(../photos/blog.jpg);
+    background-size: contain;
+    background-position:  center top;
+    background-repeat: no-repeat;
+    height: 90vh;
+
+}
+.adder .col-md-4{
+    padding-top: 10rem;
+}
+
+.adder .control-label{
+    font-size: large;
+    color: burlywood;
+}
+.adder h2{
+    font-size: 3rem;
+    color: burlywood;
+}
+

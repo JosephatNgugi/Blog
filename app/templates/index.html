@@ -1,1 +1,34 @@
-<h1>Hello World</h1>
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+
+
+{% block content %}
+
+<div class="blog">
+    <div class="text">
+        <p>Many stories matter. Stories have been used to 
+            dispossess and to malign. But stories can also 
+            be used to empower, and to humanize. Stories can 
+            break the dignity of a people. But stories can also 
+            repair that broken dignity
+        </p>
+        <p>Think about the word destroy. Do you know what
+             it is? De-story. Destroy. Destory. You see. And restore. 
+             That's re-story. Do you know that only two things have been 
+             proven to help survivors of the Holocaust? Massage is one. 
+             Telling their story is another. Being touched and touching. 
+             Telling your story is touching. It sets you free.
+        </p>
+    <h3 class="btn btn-info text-center"><a href="{{url_for('main.add_blog')}}">SHARE A STORY</a></h3>
+    </div>
+</div>
+<div class="container text-center header">
+    <h1>Blogs</h1>
+    <hr>
+    {{macro.displayBlog_cards(blogs)}}
+</div>
+<div class="quotes-block">
+    <cite>{{quotes.quote}}</cite><br>
+    <small>{{quotes.author}}</small>
+</div>
+{% endblock %}

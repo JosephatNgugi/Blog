@@ -1,0 +1,20 @@
+{% macro displayBlog_cards(blogs) %}
+<div class="container-fluid">
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-md-3 blog-card">
+            <h2>{{blog.title}}</h2>
+            <p>{{blog.blog}}</p>
+            <div class="sm">
+                <p>Posted by:{{blog.user.username}}</p>
+                <p>
+                    {{blog.comments.count()}} Comments
+                    <a href="{{url_for('main.comment', blog_id=blog.id)}}" class="btn btn-info">Comment</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endmacro %}
