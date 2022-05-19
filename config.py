@@ -26,6 +26,15 @@ class ProdConfig(Config):
         uri = uri.replace('postgres://', 'postgresql://', 1)
     SQLALCHEMY_DATABASE_URI = uri
 
+class TestConfig(Config):
+    """
+    Test configuration child class
+
+    Args:
+        Config : The parent configuration class with General
+        configuration settings
+    """
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Elm1n10@localhost/blogs_test'
 class DevConfig(Config):
     """
     Config child class for Development configuration
@@ -37,5 +46,7 @@ class DevConfig(Config):
     
 config_options = {
     'development': DevConfig,
-    'production': ProdConfig
+    'production': ProdConfig,
+    'test':TestConfig
+    
 }
