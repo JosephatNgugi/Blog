@@ -21,8 +21,10 @@ class ProdConfig(Config):
     Args:
         Config : Parent configurations settings to be inherited
     """
-    
-    pass
+    uri = os.getenv('DATABASE_URL')
+    if uri and uri.startswith('postgres://'):
+        uri = uri.replace('postgres://', 'postgresql://', 1)
+    SQLALCHEMY_DATABASE_URI = uri
 
 class DevConfig(Config):
     """
